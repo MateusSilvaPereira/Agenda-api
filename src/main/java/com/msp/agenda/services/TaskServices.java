@@ -1,5 +1,6 @@
 package com.msp.agenda.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,11 @@ public class TaskServices {
 		Optional<Task> task = taskRepository.findById(id);
 		return task.orElseThrow(()-> new RuntimeException(
 				"Tarefa não encontrada!: id = " + id + " Tipo = " + Task.class.getName()));
+	}
+	
+	public List<Task> findAllByUserId(Long userId){
+		List<Task> task = taskRepository.findByUser_id(userId);
+		return task;
 	}
 	
 	@Transactional
