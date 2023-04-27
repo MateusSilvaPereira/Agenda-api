@@ -16,9 +16,6 @@ public class UserServices {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
-	private TaskRepository taskRepository;
-	
 	public User findById(Long id) {
 		Optional<User> user = userRepository.findById(id);
 		return user.orElseThrow(()-> 
