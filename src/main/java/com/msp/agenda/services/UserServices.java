@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.msp.agenda.models.User;
-import com.msp.agenda.respository.TaskRepository;
 import com.msp.agenda.respository.UserRepository;
 
 @Service
