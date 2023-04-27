@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.msp.agenda.models.Task;
 import com.msp.agenda.services.TaskServices;
+import com.msp.agenda.services.UserServices;
 
 @RestController
 @RequestMapping("/task")
@@ -28,6 +29,9 @@ public class TaskController {
 
 	@Autowired
 	private TaskServices  taskServices; 
+	
+	@Autowired
+	private UserServices  userServices; 
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Task> findById(@PathVariable Long id){
@@ -38,6 +42,7 @@ public class TaskController {
 	
 	@GetMapping("/user/{userId}")
 	public ResponseEntity<List<Task>> findAllByUserId(@PathVariable Long userId){
+		userServices.findById(userId);
 		List<Task> objs = taskServices.findAllByUserId(userId);
 		return ResponseEntity.ok().body(objs);
 	}
