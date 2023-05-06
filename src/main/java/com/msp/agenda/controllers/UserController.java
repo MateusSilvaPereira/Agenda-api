@@ -37,7 +37,7 @@ public class UserController {
 				.body(userServices.findById(id));
 	}
 	
-	@PostMapping()
+	@PostMapping
 	@Validated(CreateUser.class)
 	public ResponseEntity<Void> create(@Valid @RequestBody User obj){
 		userServices.create(obj);
