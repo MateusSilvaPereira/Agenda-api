@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.msp.agenda.models.User;
 import com.msp.agenda.respository.UserRepository;
+import com.msp.agenda.services.exceptions.DataBindingViolationException;
+import com.msp.agenda.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class UserServices {
@@ -18,7 +20,7 @@ public class UserServices {
 	public User findById(Long id) {
 		Optional<User> user = userRepository.findById(id);
 		return user.orElseThrow(()-> 
-		new RuntimeException("Usuario não encontrado: id =" + id + " Tipo = " + User.class.getName()));
+		new ObjectNotFoundException("Usuario não encontrado: id = " + id + " Tipo = " + User.class.getName()));
 	}
 	
 	@Transactional
@@ -44,7 +46,7 @@ public class UserServices {
 			userRepository.deleteById(id);	
 		} catch (Exception e) {
 			
-			throw new RuntimeException("Não é possivel excluir pois há entidades relacionadas!");			
+			throw new DataBindingViolationException("Não é possivel excluir pois há entidades relacionadas!");			
 		}
 	}
 }

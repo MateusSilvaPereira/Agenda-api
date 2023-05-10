@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.msp.agenda.models.Task;
 import com.msp.agenda.models.User;
 import com.msp.agenda.respository.TaskRepository;
+import com.msp.agenda.services.exceptions.DataBindingViolationException;
+import com.msp.agenda.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class TaskServices {
@@ -24,7 +26,7 @@ public class TaskServices {
 	public Task findById(Long id) {
 		
 		Optional<Task> task = taskRepository.findById(id);
-		return task.orElseThrow(()-> new RuntimeException(
+		return task.orElseThrow(()-> new ObjectNotFoundException(
 				"Tarefa não encontrada!: id = " + id + " Tipo = " + Task.class.getName()));
 	}
 	
@@ -55,7 +57,7 @@ public class TaskServices {
 		try {
 			taskRepository.deleteById(id);
 		} catch (Exception e) {
-			throw new RuntimeException(
+			throw new DataBindingViolationException(
 					"Não é possivel excluir pois há entidades relacionadas!"
 					);
 		}
