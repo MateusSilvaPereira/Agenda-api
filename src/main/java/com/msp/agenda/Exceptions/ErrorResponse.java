@@ -10,11 +10,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 @RequiredArgsConstructor
-@JsonInclude(value = JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ErrorResponse {
-	
     private final int status;
     private final String message;
     private String stackTrace;
@@ -34,4 +34,10 @@ public class ErrorResponse {
         }
         this.errors.add(new ValidationError(field, message));
     }
+
+    public String toJson() {
+        return "{\"status\": " + getStatus() + ", " +
+                "\"message\": \"" + getMessage() + "\"}";
+    }
+
 }
